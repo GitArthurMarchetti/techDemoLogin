@@ -1,11 +1,12 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { EventItemType } from "../interfaces/eventType";
 
 const EventItem = ({
     name,
     date,
     location
-}) => {
+}: EventItemType ) => {
     return (
         <View style={styles.container}>
             <Text style={styles.name}>{name}</Text>
@@ -17,11 +18,11 @@ const EventItem = ({
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#ffffff', 
-        padding: 15, 
-        marginVertical: 8, 
-        marginHorizontal: 16, 
-        borderRadius: 10, 
+        backgroundColor: '#ffffff',
+        padding: 15,
+        marginVertical: 8,
+        marginHorizontal: 16,
+        borderRadius: 10,
 
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
@@ -31,10 +32,10 @@ const styles = StyleSheet.create({
         elevation: 5,
     },
     name: {
-        fontSize: 20, 
-        fontWeight: 'bold', 
-        marginBottom: 5, 
-        color: '#333', 
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 5,
+        color: '#333',
     },
     details: {
         fontSize: 16,
