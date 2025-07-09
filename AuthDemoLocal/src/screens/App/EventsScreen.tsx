@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, FlatList, StyleSheet, Text, View } from "react-native";
 import eventsData from '../../data/events.json';
 import EventItem from "../../components/EventItem";
+import { useAuth } from "../../context/AuthContext";
 
 const EventsScreen = () => {
 
-    const { logout, currentUser } = useState();
+    const { logout, currentUser } = useAuth();
 
     const handleLogout = () => {
         logout();
