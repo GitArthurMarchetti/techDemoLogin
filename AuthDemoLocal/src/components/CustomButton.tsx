@@ -8,7 +8,7 @@ import {
   TextStyle,
 } from 'react-native';
 import { colors } from '../theme/colors';
-import { typography } from '../theme/typograpy';
+import { typography } from '../theme/typography';
 
 
 interface CustomButtonProps {

@@ -3,7 +3,7 @@ import { useAuth } from "../../context/AuthContext";
 import { StyleSheet, Text, TextInput, View } from "react-native"; 
 import { colors } from "../../theme/colors";
 import CustomButton from "../../components/CustomButton"; 
-import { typography } from "../../theme/typograpy";
+import { typography } from "../../theme/typography";
 
 
 const LoginScreen = () => {

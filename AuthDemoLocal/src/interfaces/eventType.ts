@@ -1,5 +1,6 @@
 export interface EventItemType {
-    name: string;
-    date: string;
-    location: string;
-  }
+  name: string;
+  date: string;
+  location: string;
+  image?: string; 
+}

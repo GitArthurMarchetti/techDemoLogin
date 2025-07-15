@@ -1,22 +1,34 @@
+// src/screens/App/EventsScreen.tsx
 import React from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import eventsData from '../../data/events.json';
 import EventItem from "../../components/EventItem";
 import { useAuth } from "../../context/AuthContext";
-import CustomButton from "../../components/CustomButton"; 
+import CustomButton from "../../components/CustomButton";
 
 import { colors } from '../../theme/colors';
-import { typography } from "../../theme/typograpy";
+import { typography } from '../../theme/typography';
+import { RootStackParamList } from "../../interfaces/navigation";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 
-const EventsScreen = () => {
+type EventsScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Events'>;
 
+interface EventsScreenProps {
+    navigation: EventsScreenNavigationProp;
+}
+
+const EventsScreen: React.FC<EventsScreenProps> = ({ navigation }) => {
     const { logout, currentUser } = useAuth();
 
     const handleLogout = () => {
         logout();
     }
 
+    // Agora, passamos o nome e a localização do evento também
+    const handleEventPress = (eventId: string, eventName: string, eventLocation: string) => {
+        navigation.navigate('ScanOptions', { eventId, eventName, eventLocation }); // Passando nome e localização
+    };
 
     return (
         <View style={styles.container}>
@@ -28,7 +40,7 @@ const EventsScreen = () => {
                 <CustomButton
                     title="Log out"
                     onPress={handleLogout}
-                    type="danger" 
+                    type="danger"
                     style={styles.logoutButton}
                     textStyle={styles.logoutButtonText}
                 />
@@ -37,11 +49,14 @@ const EventsScreen = () => {
             <FlatList
                 data={eventsData}
                 keyExtractor={(item, index) => index.toString()}
-                renderItem={({ item }) => (
+                renderItem={({ item, index }) => (
                     <EventItem
                         name={item.name}
                         date={item.date}
                         location={item.location}
+                        image={item.image}
+                        // Passando o nome e a localização para a função de clique
+                        onPress={() => handleEventPress(index.toString(), item.name, item.location)}
                     />
                 )}
                 contentContainerStyle={styles.listContent}
@@ -58,7 +73,7 @@ const styles = StyleSheet.create({
     header: {
         padding: 20,
         paddingTop: 50,
-        backgroundColor: colors.primary,
+        backgroundColor: colors.bgDark,
         alignItems: 'center',
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
@@ -72,21 +87,21 @@ const styles = StyleSheet.create({
     title: {
         fontSize: typography.fontSizes.large,
         fontWeight: typography.fontWeights.bold,
-        color: colors.textPrimary,
+        color: colors.bgPrimary,
         marginBottom: 10,
     },
     loggedInAs: {
         fontSize: typography.fontSizes.small,
-        color: colors.textPrimary,
+        color: colors.bgPrimary,
         marginBottom: 15,
     },
     logoutButton: {
-        maxWidth: 100, 
-        height: 35, 
-        borderRadius: 18, 
+        maxWidth: 100,
+        height: 35,
+        borderRadius: 18,
     },
     logoutButtonText: {
-        fontSize: typography.fontSizes.small, 
+        fontSize: typography.fontSizes.small,
     },
     listContent: {
         paddingBottom: 20,
