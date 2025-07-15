@@ -38,7 +38,7 @@ const EventItem = ({
 
             <View style={styles.infoContainer}>
                 <Text style={styles.name}>{name}</Text>
-                <Text style={styles.details}>Data: {date}</Text>
+                <Text style={styles.details}>Date: {date}</Text>
                 <Text style={styles.details}>Local: {location}</Text>
             </View>
         </TouchableOpacity>
