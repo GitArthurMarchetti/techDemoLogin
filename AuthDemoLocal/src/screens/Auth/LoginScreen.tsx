@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import { ActivityIndicator, Button, StyleSheet, Text, TextInput, View } from "react-native";
-
-
+import { StyleSheet, Text, TextInput, View } from "react-native"; 
+import { colors } from "../../theme/colors";
+import CustomButton from "../../components/CustomButton"; 
+import { typography } from "../../theme/typograpy";
 
 
 const LoginScreen = () => {
@@ -23,7 +24,6 @@ const LoginScreen = () => {
         setErrorMessage('');
 
         if (!email || !password) {
-            // Alert.alert('Error', "Please, fill in all fields")
             setErrorMessage('Please, fill in all fields.');
             return;
         }
@@ -58,7 +58,7 @@ const LoginScreen = () => {
                 onChangeText={setEmail}
                 keyboardType="email-address"
                 autoCapitalize="none"
-                placeholderTextColor="#999"
+                placeholderTextColor={colors.textSecondary}
             />
 
             <TextInput
@@ -67,16 +67,17 @@ const LoginScreen = () => {
                 value={password}
                 onChangeText={setPassword}
                 secureTextEntry
-                placeholderTextColor="#999"
+                placeholderTextColor={colors.textSecondary}
             />
 
             {errorMessage ? <Text style={styles.errorMessage}>{errorMessage}</Text> : null}
 
-            {loading ? (
-                <ActivityIndicator size="large" color={"#007bff"} />
-            ) : (
-                <Button title="Enter" onPress={handleLogin} color="#007bff" />
-            )}
+           <CustomButton
+                title={loading ? "" : "Enter"} 
+                onPress={handleLogin}
+                loading={loading}
+                type="primary" 
+            />
 
 
         </View>
@@ -91,35 +92,35 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: 20,
-        backgroundColor: '#f0f4f8',
+        backgroundColor: colors.bgSecondary,
     },
     title: {
-        fontSize: 32,
-        fontWeight: 'bold',
+        fontSize: typography.fontSizes.extraLarge,
+        fontWeight: typography.fontWeights.bold,
         marginBottom: 40,
-        color: '#2c3e50',
+        color: colors.textPrimary,
     },
     input: {
         width: '100%',
         maxWidth: 300,
         height: 50,
-        borderColor: '#b0c4de',
+        borderColor: colors.border,
         borderWidth: 1,
         borderRadius: 8,
         paddingHorizontal: 15,
         marginBottom: 15,
-        backgroundColor: '#ffffff',
-        fontSize: 16,
-        color: '#333',
+        backgroundColor: colors.bgPrimary,
+        fontSize: typography.fontSizes.normal,
+        color: colors.textPrimary,
     },
     errorMessage: {
-        color: 'red', 
-        marginBottom: 15, 
-        fontSize: 14,
+        color: colors.danger,
+        marginBottom: 15,
+        fontSize: typography.fontSizes.small,
         textAlign: 'center',
         width: '100%',
         maxWidth: 300,
-      }
+    }
 });
 
 export default LoginScreen;
