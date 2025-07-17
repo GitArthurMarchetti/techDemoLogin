@@ -10,18 +10,13 @@ import com.facebook.react.ReactPackage
 import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
 import com.facebook.react.defaults.DefaultReactNativeHost
 
-// Adicionar importação para RNCameraPackage
-import org.reactnative.camera.RNCameraPackage;
 
 class MainApplication : Application(), ReactApplication {
 
   override val reactNativeHost: ReactNativeHost =
-      object : DefaultReactNativeHost(this) {
+      object : DefaultReactNativeHost(this) {'
         override fun getPackages(): List<ReactPackage> =
             PackageList(this).packages.apply {
-              // Packages that cannot be autolinked yet can be added manually here, for example:
-              // adicione RNCameraPackage() aqui
-              add(RNCameraPackage()) 
             }
 
         override fun getJSMainModuleName(): String = "index"

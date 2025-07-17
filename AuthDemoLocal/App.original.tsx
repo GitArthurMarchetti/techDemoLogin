@@ -2,10 +2,10 @@ import React from 'react';
 import { AuthProvider } from './src/context/AuthContext';
 import RootNavigator from './src/navigation/RootNavigator';
 
-import { Amplify } from 'aws-amplify'; 
-import awsconfig from './aws-exports'; 
+// import { Amplify } from 'aws-amplify'; 
+// import awsconfig from './aws-exports'; 
 
-Amplify.configure(awsconfig);
+// Amplify.configure(awsconfig);
 
 const App = () => {
   return (

@@ -25,9 +25,8 @@ const EventsScreen: React.FC<EventsScreenProps> = ({ navigation }) => {
         logout();
     }
 
-    // Agora, passamos o nome e a localização do evento também
     const handleEventPress = (eventId: string, eventName: string, eventLocation: string) => {
-        navigation.navigate('ScanOptions', { eventId, eventName, eventLocation }); // Passando nome e localização
+        navigation.navigate('ScanOptions', { eventId, eventName, eventLocation }); 
     };
 
     return (
@@ -49,14 +48,13 @@ const EventsScreen: React.FC<EventsScreenProps> = ({ navigation }) => {
             <FlatList
                 data={eventsData}
                 keyExtractor={(item, index) => index.toString()}
-                renderItem={({ item, index }) => (
+                renderItem={({ item }) => (
                     <EventItem
                         name={item.name}
                         date={item.date}
                         location={item.location}
                         image={item.image}
-                        // Passando o nome e a localização para a função de clique
-                        onPress={() => handleEventPress(index.toString(), item.name, item.location)}
+                        onPress={() => handleEventPress(item.id, item.name, item.location)}
                     />
                 )}
                 contentContainerStyle={styles.listContent}

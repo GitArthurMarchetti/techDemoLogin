@@ -17,14 +17,14 @@ interface ScanOptionsScreenProps {
 }
 
 const ScanOptionsScreen: React.FC<ScanOptionsScreenProps> = ({ navigation, route }) => {
-    const { eventName, eventLocation } = route.params;
+    const { eventName, eventLocation, eventId } = route.params;
 
-    const handleCheckIn = () => {
-        console.log('Check-in');
+    const handleCheckIn = (eventId: string, scanType: "check-in") => {
+        navigation.navigate('Scanner', { eventId, scanType }); 
     };
 
-    const handleCheckOut = () => {
-        console.log('Check-out');
+    const handleCheckOut = (eventId: string, scanType: "check-out") => {
+        navigation.navigate('Scanner', { eventId, scanType }); 
     };
 
     const handleGoBack = () => {
@@ -39,13 +39,13 @@ const ScanOptionsScreen: React.FC<ScanOptionsScreenProps> = ({ navigation, route
 
                 <CustomButton
                     title="Scan Check-in"
-                    onPress={handleCheckIn}
+                    onPress={() => handleCheckIn(eventId, "check-in")}
                     type="primary"
                     style={styles.button}
                 />
                 <CustomButton
                     title="Scan Check-out"
-                    onPress={handleCheckOut}
+                    onPress={() => handleCheckOut(eventId, "check-out")}
                     type="outlinePrimary"
                     style={styles.button}
                 />

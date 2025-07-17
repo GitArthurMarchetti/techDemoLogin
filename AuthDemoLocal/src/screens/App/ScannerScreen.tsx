@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'; // Adicionado useEffect
-import { View, Text, StyleSheet, TouchableOpacity, PermissionsAndroid, Alert } from 'react-native'; // Adicionado PermissionsAndroid e Alert
-import { RNCamera } from 'react-native-camera';
+import React, { useState, useEffect } from 'react'; 
+import { View, Text, StyleSheet, TouchableOpacity, PermissionsAndroid, Alert } from 'react-native'; 
+// import { RNCamera } from 'react-native-camera';
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteProp } from '@react-navigation/native';
@@ -19,41 +19,37 @@ interface ScannerScreenProps {
 const ScannerScreen: React.FC<ScannerScreenProps> = ({ navigation, route }) => {
     const [flashOn, setFlashOn] = useState(false);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-    const [hasPermission, setHasPermission] = useState(false); // Novo estado para controle de permissão
+    const [hasPermission, setHasPermission] = useState(false); 
     const { scanType, eventId } = route.params;
 
-    // Função para solicitar permissões da câmera em tempo de execução
     const requestCameraPermission = async () => {
         try {
             const granted = await PermissionsAndroid.request(
                 PermissionsAndroid.PERMISSIONS.CAMERA,
                 {
-                    title: "Permissão da Câmera",
-                    message: "Este aplicativo precisa de acesso à sua câmera para escanear.",
-                    buttonNeutral: "Perguntar Depois",
-                    buttonNegative: "Cancelar",
+                    title: "Camera Permissions",
+                    message: "This app needs access to your camera to scan.",
+                    buttonNeutral: "Ask Later",
+                    buttonNegative: "Cancel",
                     buttonPositive: "OK"
                 }
             );
             if (granted === 'granted') {
-                console.log("Permissão da câmera concedida");
                 setHasPermission(true);
             } else {
-                console.log("Permissão da câmera negada");
                 setHasPermission(false);
-                Alert.alert("Permissão Necessária", "A permissão da câmera é essencial para usar o scanner.");
-                navigation.goBack(); // Volta se a permissão for negada
+                Alert.alert("Permisson necessary", "Camera permission is essential to use the scanner.");
+                navigation.goBack(); 
             }
         } catch (err) {
             console.warn(err);
             setHasPermission(false);
-            Alert.alert("Erro de Permissão", "Ocorreu um erro ao solicitar a permissão da câmera.");
+            Alert.alert("Permission Error", "An error occurred while requesting camera permission.");
             navigation.goBack();
         }
     };
 
     useEffect(() => {
-        // Solicita a permissão quando o componente é montado
         requestCameraPermission();
     }, []);
 
@@ -62,8 +58,7 @@ const ScannerScreen: React.FC<ScannerScreenProps> = ({ navigation, route }) => {
             return;
         }
 
-        console.log(`Código escaneado para ${scanType} do evento ${eventId}:`, event.data);
-
+        console.log(`Scanned code for ${scanType} of event ${eventId}:`, event.data);
         setShowSuccessMessage(true);
         setTimeout(() => {
             setShowSuccessMessage(false);
@@ -79,47 +74,16 @@ const ScannerScreen: React.FC<ScannerScreenProps> = ({ navigation, route }) => {
     };
 
     if (!hasPermission) {
-        // Renderiza uma tela de carregamento ou mensagem enquanto espera pela permissão
         return (
             <View style={styles.permissionContainer}>
-                <Text style={styles.permissionText}>Aguardando permissão da câmera...</Text>
+                <Text style={styles.permissionText}>Waiting camera permission...</Text>
             </View>
         );
     }
 
     return (
         <View style={styles.container}>
-            <RNCamera
-                style={styles.camera}
-                type={RNCamera.Constants.Type.back}
-                flashMode={flashOn ? RNCamera.Constants.FlashMode.torch : RNCamera.Constants.FlashMode.off}
-                onBarCodeRead={onBarCodeRead}
-                captureAudio={false}
-            >
-                <View style={styles.overlay}>
-                    <Text style={styles.scanTypeText}>
-                        Scan para {scanType === 'check-in' ? 'CHECK-IN' : 'CHECK-OUT'}
-                    </Text>
-                    <Text style={styles.eventDetails}>Evento ID: {eventId}</Text>
-
-                    <View style={styles.controlsContainer}>
-                        <TouchableOpacity style={styles.flashButton} onPress={toggleFlash}>
-                            <Text style={styles.flashButtonText}>{flashOn ? 'Flash OFF' : 'Flash ON'}</Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity style={styles.backButton} onPress={handleGoBack}>
-                            <Text style={styles.backButtonText}>Voltar</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-
-                {showSuccessMessage && (
-                    <View style={styles.successMessageOverlay}>
-                        <Text style={styles.successCheckmark}>✓</Text>
-                        <Text style={styles.successText}>Scan com Sucesso!</Text>
-                    </View>
-                )}
-            </RNCamera>
+         
         </View>
     );
 };
@@ -129,13 +93,13 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: colors.bgDark,
     },
-    permissionContainer: { // Novo estilo para tela de permissão
+    permissionContainer: { 
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: colors.bgSecondary,
     },
-    permissionText: { // Estilo para o texto de permissão
+    permissionText: { 
         fontSize: typography.fontSizes.medium,
         color: colors.textPrimary,
         textAlign: 'center',
