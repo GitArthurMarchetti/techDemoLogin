@@ -1,18 +1,21 @@
-import React from 'react';
-import { AuthProvider } from './src/context/AuthContext';
-import RootNavigator from './src/navigation/RootNavigator';
+  import React from 'react';
+  import { Authenticator, } from '@aws-amplify/ui-react-native';
+  import CognitoConfig from './src/amplify-config';
+  import RootNavigator from './src/navigation/RootNavigator';
 
-// import { Amplify } from 'aws-amplify'; 
-// import awsconfig from './aws-exports'; 
 
-// Amplify.configure(awsconfig);
+  function App() {
+    return (
+      <Authenticator.Provider>
+        <CognitoConfig />
+        <Authenticator
+          loginMechanisms={['email']}
+          signUpAttributes={['given_name', 'family_name']}
+        >
+          <RootNavigator/>
+        </Authenticator>
+      </Authenticator.Provider>
+    );
+  }
 
-const App = () => {
-  return (
-    <AuthProvider>
-      <RootNavigator />
-    </AuthProvider>
-  );
-};
-
-export default App;
+  export default App; 

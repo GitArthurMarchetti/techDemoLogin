@@ -3,7 +3,8 @@ import React from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import eventsData from '../../data/events.json';
 import EventItem from "../../components/EventItem";
-import { useAuth } from "../../context/AuthContext";
+// import { useAuth } from "../../context/AuthContext"; // REMOVIDO: Não precisamos mais do logout personalizado
+import { useAuthenticator } from "@aws-amplify/ui-react-native"; // ADICIONADO: Para usar o signOut da AWS Amplify
 import CustomButton from "../../components/CustomButton";
 
 import { colors } from '../../theme/colors';
@@ -19,26 +20,27 @@ interface EventsScreenProps {
 }
 
 const EventsScreen: React.FC<EventsScreenProps> = ({ navigation }) => {
-    const { logout, currentUser } = useAuth();
+    const { signOut, user } = useAuthenticator();
 
     const handleLogout = () => {
-        logout();
+        signOut();
     }
 
     const handleEventPress = (eventId: string, eventName: string, eventLocation: string) => {
-        navigation.navigate('ScanOptions', { eventId, eventName, eventLocation }); 
+        navigation.navigate('ScanOptions', { eventId, eventName, eventLocation });
     };
+
 
     return (
         <View style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.title}>Available Events</Text>
-                {currentUser && (
-                    <Text style={styles.loggedInAs}>Logged in as: {currentUser.email}</Text>
+                {user && (
+                    <Text style={styles.loggedInAs}>Logged in as: {user.username}</Text>
                 )}
                 <CustomButton
                     title="Log out"
-                    onPress={handleLogout}
+                    onPress={handleLogout} 
                     type="danger"
                     style={styles.logoutButton}
                     textStyle={styles.logoutButtonText}

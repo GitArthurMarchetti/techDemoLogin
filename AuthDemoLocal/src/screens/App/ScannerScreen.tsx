@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react'; 
-import { View, Text, StyleSheet, TouchableOpacity, PermissionsAndroid, Alert } from 'react-native'; 
-// import { RNCamera } from 'react-native-camera';
-
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../interfaces/navigation';
 import { colors } from '../../theme/colors';
 import { typography } from '../../theme/typography';
+import { StyleSheet, View } from 'react-native';
+// import { Camera } from 'react-native-camera-kit';
 
 type ScannerScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Scanner'>;
 type ScannerScreenRouteProp = RouteProp<RootStackParamList, 'Scanner'>;
@@ -17,73 +15,17 @@ interface ScannerScreenProps {
 }
 
 const ScannerScreen: React.FC<ScannerScreenProps> = ({ navigation, route }) => {
-    const [flashOn, setFlashOn] = useState(false);
-    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-    const [hasPermission, setHasPermission] = useState(false); 
-    const { scanType, eventId } = route.params;
-
-    const requestCameraPermission = async () => {
-        try {
-            const granted = await PermissionsAndroid.request(
-                PermissionsAndroid.PERMISSIONS.CAMERA,
-                {
-                    title: "Camera Permissions",
-                    message: "This app needs access to your camera to scan.",
-                    buttonNeutral: "Ask Later",
-                    buttonNegative: "Cancel",
-                    buttonPositive: "OK"
-                }
-            );
-            if (granted === 'granted') {
-                setHasPermission(true);
-            } else {
-                setHasPermission(false);
-                Alert.alert("Permisson necessary", "Camera permission is essential to use the scanner.");
-                navigation.goBack(); 
-            }
-        } catch (err) {
-            console.warn(err);
-            setHasPermission(false);
-            Alert.alert("Permission Error", "An error occurred while requesting camera permission.");
-            navigation.goBack();
-        }
-    };
-
-    useEffect(() => {
-        requestCameraPermission();
-    }, []);
-
-    const onBarCodeRead = (event: any) => {
-        if (showSuccessMessage) {
-            return;
-        }
-
-        console.log(`Scanned code for ${scanType} of event ${eventId}:`, event.data);
-        setShowSuccessMessage(true);
-        setTimeout(() => {
-            setShowSuccessMessage(false);
-        }, 2000);
-    };
-
-    const toggleFlash = () => {
-        setFlashOn(prev => !prev);
-    };
-
-    const handleGoBack = () => {
-        navigation.goBack();
-    };
-
-    if (!hasPermission) {
-        return (
-            <View style={styles.permissionContainer}>
-                <Text style={styles.permissionText}>Waiting camera permission...</Text>
-            </View>
-        );
-    }
 
     return (
         <View style={styles.container}>
-         
+
+            {/* <Camera
+            scanBarcode={true}
+            showFrame={true} 
+            laserColor='red' 
+            frameColor='white' 
+/> */}
+
         </View>
     );
 };
@@ -93,13 +35,13 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: colors.bgDark,
     },
-    permissionContainer: { 
+    permissionContainer: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: colors.bgSecondary,
     },
-    permissionText: { 
+    permissionText: {
         fontSize: typography.fontSizes.medium,
         color: colors.textPrimary,
         textAlign: 'center',

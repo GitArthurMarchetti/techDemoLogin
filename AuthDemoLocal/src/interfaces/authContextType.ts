@@ -10,5 +10,5 @@ export interface AuthContextType {
 
 
 export interface AuthProviderProps {
-    children: ReactNode; // A propriedade 'children' é do tipo ReactNode
+    children: ReactNode; 
 }
