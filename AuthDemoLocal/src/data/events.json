@@ -1,79 +1,79 @@
 [
-  {
-    "id": "1",
-    "name": "Summer Festival",
-    "date": "2025-08-15",
-    "location": "Central Park",
-    "image": "SummerFest.png"
-  },
-  {
-    "id": "2",
-    "name": "Tech Meetup",
-    "date": "2025-09-10",
-    "location": "Downtown Conference Center",
-    "image": "SummerFest.png"
-  },
-  {
-    "id": "3",
-    "name": "Art Exhibition",
-    "date": "2025-10-20",
-    "location": "City Museum",
-    "image": "SummerFest.png"
-  },
-  {
-    "id": "4",
-    "name": "Food Truck Rally",
-    "date": "2025-11-05",
-    "location": "Waterfront Park",
-    "image": "SummerFest.png"
-  },
-  {
-    "id": "5",
-    "name": "Winter Gala",
-    "date": "2025-12-12",
-    "location": "Grand Ballroom",
-    "image": "SummerFest.png"
-  },
-  {
-    "id": "6",
-    "name": "Carnaval in Rio",
-    "date": "2026-02-28",
-    "location": "Johnsson Park",
-    "image": "Carnaval.jpg"
-  },
-  {
-    "id": "7",
-    "name": "Summer Festival",
-    "date": "2025-08-15",
-    "location": "Central Park",
-    "image": "SummerFest.png"
-  },
-  {
-    "id": "8",
-    "name": "Tech Meetup",
-    "date": "2025-09-10",
-    "location": "Downtown Conference Center",
-    "image": "SummerFest.png"
-  },
-  {
-    "id": "9",
-    "name": "Art Exhibition",
-    "date": "2025-10-20",
-    "location": "City Museum",
-    "image": "SummerFest.png"
-  },
-  {
-    "id": "10",
-    "name": "Food Truck Rally",
-    "date": "2025-11-05",
-    "location": "Waterfront Park",
-    "image": "SummerFest.png"
-  },
-  {
-    "id": "11",
-    "name": "Winter Gala",
-    "date": "2025-12-12",
-    "location": "Grand Ballroom",
-    "image": "SummerFest.png"
-  }
-]
+    {
+      "event_id": "5f9a5095-02c7-4208-90ad-d4951efab3ed",
+      "user_id": "085173e0-4071-70e6-5d89-e3d54bf5b0a3",
+      "host_id": "4035a4a7-bf15-410e-ba1f-21999d6904ba",
+      "location_id": "3fb473f9-8cff-4d8c-a72f-734aabf63a62",
+      "title": "Circle Craft Arthur",
+      "description": "Is a premier showcase of excellence in Canadian craft and design, encompassing traditional, contemporary, one-of-kind, and production works.\r\n\r\nThe market was first held at what is now the East Vancouver Cultural Centre.\r\nYetta Lees, who created clothing block-printed with her own designs, had previously held a successful fabric festival in Victoria when she was approached by a friend of a friend, Chris Wooten, to do a Christmas craft show in Vancouver.\r\nShe said the hippie artists’ sales had to be “made places where mainstream people would feel comfortable” and stipulated “no dope of any kind, no big dogs and no breastfeeding in publice,” Thelma Ruck Keene wrote in a 1990 essay on its history.\r\n\r\nLees and Wooten sent out hand-written invitations and worried that no one would come. They were shocked when 500 came, and Lees realized she had “stumbled across a need,” according to Keene’s account posted to the Circle Craft website.",
+      "startDateTime": "2025-07-24T15:24",
+      "endDateTime": "2025-07-24T18:24",
+      "imageKey": "user-1801a390-d081-7086-33e6-636885fef4a4/74b5f981-ba76-4f43-a6da-6006cbcb4020.png"
+    },
+    {
+      "event_id": "5f9a5095-02c7-4208-90ad-d4951efdwgasgw",
+      "user_id": "1801a390-d081-7086-33e6-636885fef4a4",
+      "host_id": "4035a4a7-bf15-410e-ba1f-21999d6904ba",
+      "location_id": "3fb473f9-8cff-4d8c-a72f-734aabf63a62",
+      "title": "Circle Craft",
+      "description": "Is a premier showcase of excellence in Canadian craft and design, encompassing traditional, contemporary, one-of-kind, and production works.\r\n\r\nThe market was first held at what is now the East Vancouver Cultural Centre.\r\nYetta Lees, who created clothing block-printed with her own designs, had previously held a successful fabric festival in Victoria when she was approached by a friend of a friend, Chris Wooten, to do a Christmas craft show in Vancouver.\r\nShe said the hippie artists’ sales had to be “made places where mainstream people would feel comfortable” and stipulated “no dope of any kind, no big dogs and no breastfeeding in publice,” Thelma Ruck Keene wrote in a 1990 essay on its history.\r\n\r\nLees and Wooten sent out hand-written invitations and worried that no one would come. They were shocked when 500 came, and Lees realized she had “stumbled across a need,” according to Keene’s account posted to the Circle Craft website.",
+      "startDateTime": "2025-07-24T15:24",
+      "endDateTime": "2025-07-24T18:24",
+      "imageKey": "user-1801a390-d081-7086-33e6-636885fef4a4/74b5f981-ba76-4f43-a6da-6006cbcb4020.png"
+    },
+    {
+      "event_id": "5f9a5095-02c7-4208-90ad-d495dfd2gsawd",
+      "user_id": "1801a390-d081-7086-33e6-636885fef4a4",
+      "host_id": "4035a4a7-bf15-410e-ba1f-21999d6904ba",
+      "location_id": "3fb473f9-8cff-4d8c-a72f-734aabf63a62",
+      "title": "Circle Craft",
+      "description": "Is a premier showcase of excellence in Canadian craft and design, encompassing traditional, contemporary, one-of-kind, and production works.\r\n\r\nThe market was first held at what is now the East Vancouver Cultural Centre.\r\nYetta Lees, who created clothing block-printed with her own designs, had previously held a successful fabric festival in Victoria when she was approached by a friend of a friend, Chris Wooten, to do a Christmas craft show in Vancouver.\r\nShe said the hippie artists’ sales had to be “made places where mainstream people would feel comfortable” and stipulated “no dope of any kind, no big dogs and no breastfeeding in publice,” Thelma Ruck Keene wrote in a 1990 essay on its history.\r\n\r\nLees and Wooten sent out hand-written invitations and worried that no one would come. They were shocked when 500 came, and Lees realized she had “stumbled across a need,” according to Keene’s account posted to the Circle Craft website.",
+      "startDateTime": "2025-07-24T15:24",
+      "endDateTime": "2025-07-24T18:24",
+      "imageKey": "user-1801a390-d081-7086-33e6-636885fef4a4/74b5f981-ba76-4f43-a6da-6006cbcb4020.png"
+    },
+    {
+      "event_id": "5f9a5095-02c7-4208-90ad-d495avwfvsee3rg",
+      "user_id": "1801a390-d081-7086-33e6-636885fef4a4",
+      "host_id": "4035a4a7-bf15-410e-ba1f-21999d6904ba",
+      "location_id": "3fb473f9-8cff-4d8c-a72f-734aabf63a62",
+      "title": "Circle Craft",
+      "description": "Is a premier showcase of excellence in Canadian craft and design, encompassing traditional, contemporary, one-of-kind, and production works.\r\n\r\nThe market was first held at what is now the East Vancouver Cultural Centre.\r\nYetta Lees, who created clothing block-printed with her own designs, had previously held a successful fabric festival in Victoria when she was approached by a friend of a friend, Chris Wooten, to do a Christmas craft show in Vancouver.\r\nShe said the hippie artists’ sales had to be “made places where mainstream people would feel comfortable” and stipulated “no dope of any kind, no big dogs and no breastfeeding in publice,” Thelma Ruck Keene wrote in a 1990 essay on its history.\r\n\r\nLees and Wooten sent out hand-written invitations and worried that no one would come. They were shocked when 500 came, and Lees realized she had “stumbled across a need,” according to Keene’s account posted to the Circle Craft website.",
+      "startDateTime": "2025-07-24T15:24",
+      "endDateTime": "2025-07-24T18:24",
+      "imageKey": "user-1801a390-d081-7086-33e6-636885fef4a4/74b5f981-ba76-4f43-a6da-6006cbcb4020.png"
+    },
+    {
+      "event_id": "5f9a5095-02c7-4208-90ad-djerg2sdfs",
+      "user_id": "1801a390-d081-7086-33e6-636885fef4a4",
+      "host_id": "4035a4a7-bf15-410e-ba1f-21999d6904ba",
+      "location_id": "3fb473f9-8cff-4d8c-a72f-734aabf63a62",
+      "title": "Circle Craft",
+      "description": "Is a premier showcase of excellence in Canadian craft and design, encompassing traditional, contemporary, one-of-kind, and production works.\r\n\r\nThe market was first held at what is now the East Vancouver Cultural Centre.\r\nYetta Lees, who created clothing block-printed with her own designs, had previously held a successful fabric festival in Victoria when she was approached by a friend of a friend, Chris Wooten, to do a Christmas craft show in Vancouver.\r\nShe said the hippie artists’ sales had to be “made places where mainstream people would feel comfortable” and stipulated “no dope of any kind, no big dogs and no breastfeeding in publice,” Thelma Ruck Keene wrote in a 1990 essay on its history.\r\n\r\nLees and Wooten sent out hand-written invitations and worried that no one would come. They were shocked when 500 came, and Lees realized she had “stumbled across a need,” according to Keene’s account posted to the Circle Craft website.",
+      "startDateTime": "2025-07-24T15:24",
+      "endDateTime": "2025-07-24T18:24",
+      "imageKey": "user-1801a390-d081-7086-33e6-636885fef4a4/74b5f981-ba76-4f43-a6da-6006cbcb4020.png"
+    },
+    {
+      "event_id": "3d2b6f22-a8ef-40a7-89de-21ebcf639827",
+      "user_id": "1801a390-d081-7086-33e6-636885fef4a4",
+      "host_id": "4035a4a7-bf15-410e-ba1f-21999d6904ba",
+      "location_id": "3fb473f9-8cff-4d8c-a72f-734aabf63a62",
+      "title": "Originals Show",
+      "description": "Is a premier showcase of excellence in Canadian craft and design, encompassing traditional, contemporary, one-of-kind, and production works. The market was first held at what is now the East Vancouver Cultural Centre. Yetta Lees, who created clothing block-printed with her own designs, had previously held a successful fabric festival in Victoria when she was approached by a friend of a friend, Chris Wooten, to do a Christmas craft show in Vancouver. She said the hippie artists’ sales had to be “made places where mainstream people would feel comfortable” and stipulated “no dope of any kind, no big dogs and no breastfeeding in publice,” Thelma Ruck Keene wrote in a 1990 essay on its history. Lees and Wooten sent out hand-written invitations and worried that no one would come. They were shocked when 500 came, and Lees realized she had “stumbled across a need,” according to Keene’s account posted to the Circle Craft website.",
+      "startDateTime": "2025-07-02T10:20",
+      "endDateTime": "2025-07-04T10:20",
+      "imageKey": "user-1801a390-d081-7086-33e6-636885fef4a4/e18a3739-4c29-49a3-aff4-51344a76ffc4.png"
+    },
+    {
+      "event_id": "4a50de04-2644-4a6e-ab35-e33b766ddcdd",
+      "user_id": "1801a390-d081-7086-33e6-636885fef4a4",
+      "host_id": "4035a4a7-bf15-410e-ba1f-21999d6904ba",
+      "location_id": "3fb473f9-8cff-4d8c-a72f-734aabf63a62",
+      "title": "Test event",
+      "description": "description",
+      "startDateTime": "2025-07-25T12:13",
+      "endDateTime": "2025-07-30T12:13",
+      "imageKey": "user-1801a390-d081-7086-33e6-636885fef4a4/2d8d07da-c863-4731-a71a-32cebe370488.png"
+    }
+  ]

@@ -1,126 +1,126 @@
-import React, { useState } from "react";
-import { useAuth } from "../../context/AuthContext";
-import { StyleSheet, Text, TextInput, View } from "react-native"; 
-import { colors } from "../../theme/colors";
-import CustomButton from "../../components/CustomButton"; 
-import { typography } from "../../theme/typography";
+// import React, { useState } from "react";
+// import { useAuth } from "../../context/AuthContext";
+// import { StyleSheet, Text, TextInput, View } from "react-native"; 
+// import { colors } from "../../theme/colors";
+// import CustomButton from "../../components/CustomButton"; 
+// import { typography } from "../../theme/typography";
 
 
-const LoginScreen = () => {
+// const LoginScreen = () => {
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+//     const [email, setEmail] = useState('')
+//     const [password, setPassword] = useState('')
 
-    const [loading, setLoading] = useState(false)
-    const [errorMessage, setErrorMessage] = useState('');
-
-
-
-    const { login } = useAuth()
+//     const [loading, setLoading] = useState(false)
+//     const [errorMessage, setErrorMessage] = useState('');
 
 
-    const handleLogin = async () => {
 
-        setErrorMessage('');
-
-        if (!email || !password) {
-            setErrorMessage('Please, fill in all fields.');
-            return;
-        }
-
-        setLoading(true);
-
-        const result = login(email, password);
-
-        await new Promise(resolve => setTimeout(resolve, 1000));
-
-        setLoading(false)
-
-        if (!result.success) {
-            setErrorMessage(result.message || 'Login Error.');
-        }
-
-    }
-
-    return (
-
-        <View style={styles.container}>
+//     const { login } = useAuth()
 
 
-            <Text style={styles.title}>
-                Welcome!
-            </Text>
+//     const handleLogin = async () => {
 
-            <TextInput
-                style={styles.input}
-                placeholder="Email"
-                value={email}
-                onChangeText={setEmail}
-                keyboardType="email-address"
-                autoCapitalize="none"
-                placeholderTextColor={colors.textSecondary}
-            />
+//         setErrorMessage('');
 
-            <TextInput
-                style={styles.input}
-                placeholder="Senha"
-                value={password}
-                onChangeText={setPassword}
-                secureTextEntry
-                placeholderTextColor={colors.textSecondary}
-            />
+//         if (!email || !password) {
+//             setErrorMessage('Please, fill in all fields.');
+//             return;
+//         }
 
-            {errorMessage ? <Text style={styles.errorMessage}>{errorMessage}</Text> : null}
+//         setLoading(true);
 
-           <CustomButton
-                title={loading ? "" : "Enter"} 
-                onPress={handleLogin}
-                loading={loading}
-                type="primary" 
-            />
+//         const result = login(email, password);
+
+//         await new Promise(resolve => setTimeout(resolve, 1000));
+
+//         setLoading(false)
+
+//         if (!result.success) {
+//             setErrorMessage(result.message || 'Login Error.');
+//         }
+
+//     }
+
+//     return (
+
+//         <View style={styles.container}>
 
 
-        </View>
+//             <Text style={styles.title}>
+//                 Welcome!
+//             </Text>
 
-    )
+//             <TextInput
+//                 style={styles.input}
+//                 placeholder="Email"
+//                 value={email}
+//                 onChangeText={setEmail}
+//                 keyboardType="email-address"
+//                 autoCapitalize="none"
+//                 placeholderTextColor={colors.textSecondary}
+//             />
 
-}
+//             <TextInput
+//                 style={styles.input}
+//                 placeholder="Senha"
+//                 value={password}
+//                 onChangeText={setPassword}
+//                 secureTextEntry
+//                 placeholderTextColor={colors.textSecondary}
+//             />
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 20,
-        backgroundColor: colors.bgSecondary,
-    },
-    title: {
-        fontSize: typography.fontSizes.extraLarge,
-        fontWeight: typography.fontWeights.bold,
-        marginBottom: 40,
-        color: colors.textPrimary,
-    },
-    input: {
-        width: '100%',
-        maxWidth: 300,
-        height: 50,
-        borderColor: colors.border,
-        borderWidth: 1,
-        borderRadius: 8,
-        paddingHorizontal: 15,
-        marginBottom: 15,
-        backgroundColor: colors.bgPrimary,
-        fontSize: typography.fontSizes.normal,
-        color: colors.textPrimary,
-    },
-    errorMessage: {
-        color: colors.danger,
-        marginBottom: 15,
-        fontSize: typography.fontSizes.small,
-        textAlign: 'center',
-        width: '100%',
-        maxWidth: 300,
-    }
-});
+//             {errorMessage ? <Text style={styles.errorMessage}>{errorMessage}</Text> : null}
 
-export default LoginScreen;
+//            <CustomButton
+//                 title={loading ? "" : "Enter"} 
+//                 onPress={handleLogin}
+//                 loading={loading}
+//                 type="primary" 
+//             />
+
+
+//         </View>
+
+//     )
+
+// }
+
+// const styles = StyleSheet.create({
+//     container: {
+//         flex: 1,
+//         justifyContent: 'center',
+//         alignItems: 'center',
+//         padding: 20,
+//         backgroundColor: colors.bgSecondary,
+//     },
+//     title: {
+//         fontSize: typography.fontSizes.extraLarge,
+//         fontWeight: typography.fontWeights.bold,
+//         marginBottom: 40,
+//         color: colors.textPrimary,
+//     },
+//     input: {
+//         width: '100%',
+//         maxWidth: 300,
+//         height: 50,
+//         borderColor: colors.border,
+//         borderWidth: 1,
+//         borderRadius: 8,
+//         paddingHorizontal: 15,
+//         marginBottom: 15,
+//         backgroundColor: colors.bgPrimary,
+//         fontSize: typography.fontSizes.normal,
+//         color: colors.textPrimary,
+//     },
+//     errorMessage: {
+//         color: colors.danger,
+//         marginBottom: 15,
+//         fontSize: typography.fontSizes.small,
+//         textAlign: 'center',
+//         width: '100%',
+//         maxWidth: 300,
+//     }
+// });
+
+// export default LoginScreen;

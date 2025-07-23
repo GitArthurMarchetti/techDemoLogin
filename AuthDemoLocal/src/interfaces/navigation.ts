@@ -1,16 +1,16 @@
 import { NavigatorScreenParams } from '@react-navigation/native';
 
-type AuthStackParamList = {
-    Login: undefined;
+export type AuthStackParamList = {
+    Login: undefined; 
 };
 
-type AppStackParamList = {
-    Events: undefined;
-    ScanOptions: { eventId: string; eventName: string; eventLocation: string };
-    Scanner: { scanType: 'check-in' | 'check-out'; eventId: string }; 
+export type AppStackParamList = {
+    Events: undefined; 
+    ScanOptions: { eventId: string; eventName: string; eventLocation: string; };
+    Scanner: { eventId: string; }; 
 };
 
-export type RootStackParamList = AuthStackParamList & AppStackParamList & {
+export type RootStackParamList = {
     AuthStack: NavigatorScreenParams<AuthStackParamList>;
     AppStack: NavigatorScreenParams<AppStackParamList>;
 };

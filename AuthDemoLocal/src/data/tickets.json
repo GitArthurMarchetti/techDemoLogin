@@ -1,0 +1,48 @@
+[
+  {
+    "TicketId": "77e302e9-d9f4-4d0c-bb89-81f3fa2b0fa4",
+    "EventId": "5f9a5095-02c7-4208-90ad-d4951efab3ed",
+    "Name": "General Admission",
+    "Description": "General Access",
+    "Category": "General",
+    "Level": "1",
+    "UsageType": "All",
+    "ValidityPeriods": [],
+    "Price": 29.99,
+    "Quantity": 10000,
+    "stripePriceID": "price_1RlDRYDteBVPlEvE2dbxcAgh"
+  },
+  {
+    "TicketId": "bf452b9c-fed8-48b5-9033-bff9fddf7aaa",
+    "EventId": "5f9a5095-02c7-4208-90ad-d4951efab3ed",
+    "Name": "General Admission",
+    "Description": "",
+    "Category": "",
+    "Level": "",
+    "UsageType": "",
+    "Price": 23.99,
+    "Quantity": 532,
+    "ValidityPeriods": [],
+    "stripePriceID": "price_1RlDReDteBVPlEvEhzW9r2Ye"
+  },
+  {
+    "TicketId": "91e9beb1-ba8b-463a-87c0-ae63d5794472",
+    "EventId": "5f9a5095-02c7-4208-90ad-d4951efab3ed",
+    "Name": "General Admission",
+    "Description": "",
+    "Category": "",
+    "Level": "",
+    "UsageType": "",
+    "Price": 40.99,
+    "Quantity": 20000,
+    "ValidityPeriods": [
+      {
+        "Date": "2025-07-23",
+        "StartTime": "12:15",
+        "EndTime": "18:15",
+        "Areas": ""
+      }
+    ],
+    "stripePriceID": "price_1RlEXEDteBVPlEvE61Ma7SvA"
+  }
+]

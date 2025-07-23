@@ -1,19 +1,19 @@
-// src/screens/App/EventsScreen.tsx
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import eventsData from '../../data/events.json';
-import EventItem from "../../components/EventItem";
-// import { useAuth } from "../../context/AuthContext"; // REMOVIDO: Não precisamos mais do logout personalizado
-import { useAuthenticator } from "@aws-amplify/ui-react-native"; // ADICIONADO: Para usar o signOut da AWS Amplify
+import { useAuthenticator } from "@aws-amplify/ui-react-native";
 import CustomButton from "../../components/CustomButton";
 
 import { colors } from '../../theme/colors';
 import { typography } from '../../theme/typography';
-import { RootStackParamList } from "../../interfaces/navigation";
+import {  AppStackParamList } from "../../interfaces/navigation";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
+import { EventFromJSON } from '../../interfaces/event';
+import { getEventsByUser } from "../../utils/eventsService";
+import EventItem from "../../components/EventItem";
 
-type EventsScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Events'>;
+
+type EventsScreenNavigationProp = NativeStackNavigationProp<AppStackParamList, 'Events'>;
 
 interface EventsScreenProps {
     navigation: EventsScreenNavigationProp;
@@ -21,6 +21,26 @@ interface EventsScreenProps {
 
 const EventsScreen: React.FC<EventsScreenProps> = ({ navigation }) => {
     const { signOut, user } = useAuthenticator();
+    const [userEvents, setUserEvents] = useState<EventFromJSON[]>([]);
+
+    useEffect(() => {
+        const fetchEvents = async () => {
+            if (user) {
+                try {
+                    const userId = user.userId;
+                    const events = await getEventsByUser(userId);
+                    setUserEvents(events);
+                } catch (error) {
+                    console.error("Error fetching user events:", error);
+                    setUserEvents([]);
+                }
+            } else {
+                setUserEvents([]);
+            }
+        };
+
+        fetchEvents();
+    }, [user]);
 
     const handleLogout = () => {
         signOut();
@@ -29,7 +49,6 @@ const EventsScreen: React.FC<EventsScreenProps> = ({ navigation }) => {
     const handleEventPress = (eventId: string, eventName: string, eventLocation: string) => {
         navigation.navigate('ScanOptions', { eventId, eventName, eventLocation });
     };
-
 
     return (
         <View style={styles.container}>
@@ -40,27 +59,32 @@ const EventsScreen: React.FC<EventsScreenProps> = ({ navigation }) => {
                 )}
                 <CustomButton
                     title="Log out"
-                    onPress={handleLogout} 
+                    onPress={handleLogout}
                     type="danger"
                     style={styles.logoutButton}
                     textStyle={styles.logoutButtonText}
                 />
             </View>
 
-            <FlatList
-                data={eventsData}
-                keyExtractor={(item, index) => index.toString()}
-                renderItem={({ item }) => (
-                    <EventItem
-                        name={item.name}
-                        date={item.date}
-                        location={item.location}
-                        image={item.image}
-                        onPress={() => handleEventPress(item.id, item.name, item.location)}
-                    />
-                )}
-                contentContainerStyle={styles.listContent}
-            />
+            {userEvents.length > 0 ? (
+                <FlatList
+                    data={userEvents}
+                    keyExtractor={(item) => item.event_id}
+                    renderItem={({ item }) => (
+                        <EventItem
+                            event_id={item.event_id}
+                            title={item.title}
+                            location_id={item.location_id}
+                            onPress={() => handleEventPress(item.event_id, item.title, item.location_id)}
+                        />
+                    )}
+                    contentContainerStyle={styles.listContent}
+                />
+            ) : (
+                <View style={styles.noEventsContainer}>
+                    <Text style={styles.noEventsText}>No events found for this user.</Text>
+                </View>
+            )}
         </View>
     )
 }
@@ -105,6 +129,15 @@ const styles = StyleSheet.create({
     },
     listContent: {
         paddingBottom: 20,
+    },
+    noEventsContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    noEventsText: {
+        fontSize: typography.fontSizes.medium,
+        color: colors.textSecondary,
     },
 });
 

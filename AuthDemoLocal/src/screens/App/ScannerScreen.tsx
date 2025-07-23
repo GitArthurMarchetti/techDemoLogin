@@ -6,15 +6,15 @@ import { typography } from '../../theme/typography';
 import { StyleSheet, View } from 'react-native';
 // import { Camera } from 'react-native-camera-kit';
 
-type ScannerScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Scanner'>;
-type ScannerScreenRouteProp = RouteProp<RootStackParamList, 'Scanner'>;
+type ScannerScreenNavigationProp = NativeStackNavigationProp<RootStackParamList>;
+type ScannerScreenRouteProp = RouteProp<RootStackParamList>;
 
 interface ScannerScreenProps {
     navigation: ScannerScreenNavigationProp;
     route: ScannerScreenRouteProp;
 }
 
-const ScannerScreen: React.FC<ScannerScreenProps> = ({ navigation, route }) => {
+const ScannerScreen: React.FC<ScannerScreenProps> = ({ }) => {
 
     return (
         <View style={styles.container}>

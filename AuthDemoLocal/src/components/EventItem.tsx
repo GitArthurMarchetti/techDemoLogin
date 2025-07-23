@@ -1,45 +1,33 @@
 import React from "react";
-import { Image, StyleSheet, Text, View, TouchableOpacity } from "react-native"; 
-import { EventItemType } from "../interfaces/eventType"; 
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
 import { colors } from '../theme/colors';
-import { typography } from "../theme/typography"; 
+import { typography } from "../theme/typography";
+import { EventFromJSON } from "../interfaces/event";
+import CustomButton from "./CustomButton";
 
-
-const eventImages: { [key: string]: any } = {
-    'SummerFest.png': require('../assets/images/SummerFest.png'),
-    'FoodTruck.png': require('../assets/images/FoodTruck.png'),
-    'Carnaval.jpg': require('../assets/images/Carnaval.jpg'),
-    'default_fallback_image': require('../assets/images/Carnaval.jpg'), 
-};
-
-interface EventItemProps extends EventItemType {
+interface EventItemProps extends EventFromJSON {
     onPress: () => void;
 }
 
 const EventItem = ({
-    name,
-    date,
-    location,
-    image,
-    onPress 
+    title,
+    location_id,
+    onPress
 }: EventItemProps) => {
 
-    const eventImageSource = (image && eventImages[image])
-        ? eventImages[image]
-        : eventImages['default_fallback_image'];
 
     return (
-        <TouchableOpacity style={styles.container} onPress={onPress} activeOpacity={0.8}> 
-            <Image
-                source={eventImageSource}
-                style={styles.eventImage}
-            />
+        <TouchableOpacity style={styles.container} onPress={onPress} activeOpacity={0.8}>
 
             <View style={styles.infoContainer}>
-                <Text style={styles.name}>{name}</Text>
-                <Text style={styles.details}>Date: {date}</Text>
-                <Text style={styles.details}>Local: {location}</Text>
+                <Text style={styles.name}>{title}</Text>
+                <Text style={styles.details} >{location_id}</Text>
+                <CustomButton
+                    title="Scan"
+                    onPress={onPress}
+                    style={styles.scanButton}
+                />
             </View>
         </TouchableOpacity>
     )
@@ -47,7 +35,7 @@ const EventItem = ({
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: colors.bgPrimary, 
+        backgroundColor: colors.bgPrimary,
         padding: 15,
         marginVertical: 8,
         marginHorizontal: 16,
@@ -68,6 +56,12 @@ const styles = StyleSheet.create({
     },
     infoContainer: {
 
+    },
+    scanButton: {
+        maxWidth: 100,
+        height: 35,
+        marginTop: 20,
+        borderRadius: 18,
     },
     name: {
         fontSize: typography.fontSizes.medium,
