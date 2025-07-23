@@ -1,7 +1,7 @@
 import React from 'react';
 import { Authenticator } from '@aws-amplify/ui-react-native';
-import CognitoConfig from './src/amplify-config';
-import RootNavigator from './src/navigation/RootNavigator';
+import CognitoConfig from '../amplify-config';
+import RootNavigator from '../navigation/RootNavigator';
 
 function App() {
   return (

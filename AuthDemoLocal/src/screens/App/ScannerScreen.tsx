@@ -1,31 +1,89 @@
+import React from 'react'; // REMOVIDO: useEffect, useState, PermissionsAndroid, Platform
+import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteProp } from '@react-navigation/native';
-import { RootStackParamList } from '../../interfaces/navigation';
+import { AppStackParamList } from '../../interfaces/navigation';
 import { colors } from '../../theme/colors';
 import { typography } from '../../theme/typography';
-import { StyleSheet, View } from 'react-native';
-// import { Camera } from 'react-native-camera-kit';
+import { Camera, CameraType } from 'react-native-camera-kit';
+import CustomButton from '../../components/CustomButton';
+import { Animated } from 'react-native'; 
 
-type ScannerScreenNavigationProp = NativeStackNavigationProp<RootStackParamList>;
-type ScannerScreenRouteProp = RouteProp<RootStackParamList>;
+// Importar os hooks personalizados
+import { useCameraPermissions } from '../../hooks/useCameraPermissions';
+import { useBarcodeScanner } from '../../hooks/useBarcodeScanner'; 
+
+
+type ScannerScreenNavigationProp = NativeStackNavigationProp<AppStackParamList, 'Scanner'>;
+type ScannerScreenRouteProp = RouteProp<AppStackParamList, 'Scanner'>;
 
 interface ScannerScreenProps {
     navigation: ScannerScreenNavigationProp;
     route: ScannerScreenRouteProp;
 }
 
-const ScannerScreen: React.FC<ScannerScreenProps> = ({ }) => {
+const ScannerScreen: React.FC<ScannerScreenProps> = ({ navigation, route }) => {
+    const { eventId } = route.params;
+
+    const { hasPermission, isLoading } = useCameraPermissions();
+    const { handleBarcodeRead, popupState } = useBarcodeScanner(eventId);
+    const { showPopup, popupMessage, popupColor, fadeAnim } = popupState;
+
+
+    if (isLoading) {
+        return (
+            <View style={styles.permissionContainer}>
+                <ActivityIndicator size="large" color={colors.primary} />
+                <Text style={styles.permissionText}>Requesting camera permission...</Text>
+            </View>
+        );
+    }
+
+    if (hasPermission === false) {
+        return (
+            <View style={styles.permissionContainer}>
+                <Text style={styles.permissionText}>No access to camera. Please enable camera permissions in settings.</Text>
+            </View>
+        );
+    }
+
+    if (hasPermission === null) {
+        return (
+            <View style={styles.permissionContainer}>
+                <Text style={styles.permissionText}>Waiting for camera permission status...</Text>
+            </View>
+        );
+    }
 
     return (
         <View style={styles.container}>
+            <Camera
+                style={StyleSheet.absoluteFillObject}
+                cameraType={CameraType.Back}
+                scanBarcode={true}
+                showFrame={true}
+                laserColor='red'
+                frameColor='white'
+                onReadCode={handleBarcodeRead} 
+            />
+            <View style={styles.overlay}>
+                <Text style={styles.scanTypeText}>Scan Ticket</Text>
+                <CustomButton
+                    title="Back"
+                    onPress={() => navigation.goBack()}
+                    type="outlineDanger"
+                    style={styles.backButton}
+                    textStyle={styles.backButtonText}
+                />
+            </View>
 
-            {/* <Camera
-            scanBarcode={true}
-            showFrame={true} 
-            laserColor='red' 
-            frameColor='white' 
-/> */}
-
+            {showPopup && (
+                <Animated.View style={[styles.popupOverlay, { opacity: fadeAnim }]}>
+                    <View style={[styles.popupContent, { backgroundColor: popupColor }]}>
+                        <Text style={styles.popupMessage}>{popupMessage}</Text>
+                    </View>
+                </Animated.View>
+            )}
         </View>
     );
 };
@@ -45,6 +103,7 @@ const styles = StyleSheet.create({
         fontSize: typography.fontSizes.medium,
         color: colors.textPrimary,
         textAlign: 'center',
+        marginTop: 20,
     },
     camera: {
         flex: 1,
@@ -95,6 +154,9 @@ const styles = StyleSheet.create({
         backgroundColor: colors.danger,
         padding: 10,
         borderRadius: 5,
+        width: '80%',
+        maxWidth: 150,
+        alignItems: 'center',
     },
     backButtonText: {
         color: colors.bgPrimary,
@@ -121,6 +183,33 @@ const styles = StyleSheet.create({
         fontWeight: typography.fontWeights.semiBold,
         color: colors.bgPrimary,
         marginTop: 20,
+    },
+    popupOverlay: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0,0,0,0.5)',
+    },
+    popupContent: {
+        padding: 20,
+        borderRadius: 10,
+        alignItems: 'center',
+        maxWidth: '80%',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+    },
+    popupMessage: {
+        fontSize: typography.fontSizes.large,
+        color: colors.bgPrimary,
+        textAlign: 'center',
+        fontWeight: typography.fontWeights.bold,
     },
 });
 

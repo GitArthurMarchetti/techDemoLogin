@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { ActivityIndicator, FlatList, StyleSheet, Text, View } from "react-native";
 import { useAuthenticator } from "@aws-amplify/ui-react-native";
 import CustomButton from "../../components/CustomButton";
 
 import { colors } from '../../theme/colors';
 import { typography } from '../../theme/typography';
-import {  AppStackParamList } from "../../interfaces/navigation";
+import { AppStackParamList } from "../../interfaces/navigation";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
-import { EventFromJSON } from '../../interfaces/event';
-import { getEventsByUser } from "../../utils/eventsService";
 import EventItem from "../../components/EventItem";
+import { useUserEvents } from "../../hooks/useUserEvents";
 
 
 type EventsScreenNavigationProp = NativeStackNavigationProp<AppStackParamList, 'Events'>;
@@ -21,26 +20,9 @@ interface EventsScreenProps {
 
 const EventsScreen: React.FC<EventsScreenProps> = ({ navigation }) => {
     const { signOut, user } = useAuthenticator();
-    const [userEvents, setUserEvents] = useState<EventFromJSON[]>([]);
 
-    useEffect(() => {
-        const fetchEvents = async () => {
-            if (user) {
-                try {
-                    const userId = user.userId;
-                    const events = await getEventsByUser(userId);
-                    setUserEvents(events);
-                } catch (error) {
-                    console.error("Error fetching user events:", error);
-                    setUserEvents([]);
-                }
-            } else {
-                setUserEvents([]);
-            }
-        };
+    const { userEvents, isLoadingEvents, errorLoadingEvents } = useUserEvents();
 
-        fetchEvents();
-    }, [user]);
 
     const handleLogout = () => {
         signOut();
@@ -49,6 +31,23 @@ const EventsScreen: React.FC<EventsScreenProps> = ({ navigation }) => {
     const handleEventPress = (eventId: string, eventName: string, eventLocation: string) => {
         navigation.navigate('ScanOptions', { eventId, eventName, eventLocation });
     };
+
+    if (isLoadingEvents) {
+        return (
+            <View style={styles.loadingContainer}>
+                <ActivityIndicator size="large" color={colors.primary} />
+                <Text style={styles.loadingText}>Loading events...</Text>
+            </View>
+        );
+    }
+
+    if (errorLoadingEvents) {
+        return (
+            <View style={styles.errorContainer}>
+                <Text style={styles.errorText}>Failed to load events. Please try again later.</Text>
+            </View>
+        );
+    }
 
     return (
         <View style={styles.container}>
@@ -138,6 +137,28 @@ const styles = StyleSheet.create({
     noEventsText: {
         fontSize: typography.fontSizes.medium,
         color: colors.textSecondary,
+    },
+    loadingText: { 
+        fontSize: typography.fontSizes.medium,
+        color: colors.textPrimary,
+        marginTop: 10,
+    },
+    errorContainer: { 
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: colors.bgSecondary,
+    },
+    errorText: { 
+        fontSize: typography.fontSizes.medium,
+        color: colors.danger,
+        textAlign: 'center',
+    },
+    loadingContainer: { 
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: colors.bgSecondary,
     },
 });
 
