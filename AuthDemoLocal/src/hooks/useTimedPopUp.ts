@@ -1,4 +1,3 @@
-// src/hooks/useTimedPopup.ts
 import { useState, useEffect, useRef } from 'react';
 import { Animated } from 'react-native';
 

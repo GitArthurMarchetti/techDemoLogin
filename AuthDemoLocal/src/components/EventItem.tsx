@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
 import { colors } from '../theme/colors';
 import { typography } from "../theme/typography";
-import { EventFromJSON } from "../interfaces/event";
+import { EventFromJSON } from "../interfaces/event"; 
 import CustomButton from "./CustomButton";
 
 interface EventItemProps extends EventFromJSON {
@@ -19,10 +19,12 @@ const EventItem = ({
 
     return (
         <TouchableOpacity style={styles.container} onPress={onPress} activeOpacity={0.8}>
+            {/* NOVO: Faixa de cabeçalho */}
+            <View style={styles.band} />
 
             <View style={styles.infoContainer}>
                 <Text style={styles.name}>{title}</Text>
-                <Text style={styles.details} >{location_id}</Text>
+                <Text style={styles.details} >Location: {location_id}</Text>
                 <CustomButton
                     title="Scan"
                     onPress={onPress}
@@ -36,7 +38,7 @@ const EventItem = ({
 const styles = StyleSheet.create({
     container: {
         backgroundColor: colors.bgPrimary,
-        padding: 15,
+        paddingBottom: 15, 
         marginVertical: 8,
         marginHorizontal: 16,
         borderRadius: 10,
@@ -45,7 +47,22 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.1,
         shadowRadius: 3.84,
         elevation: 5,
-        overflow: 'hidden',
+        overflow: 'hidden', 
+    },
+    band: {
+        backgroundColor: colors.bgDark, 
+        height: 15, 
+        width: '100%', 
+        borderTopLeftRadius: 10, 
+        borderTopRightRadius: 10,
+        marginBottom: 15, 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+    },
+    headerBandText: { 
+        color: colors.bgPrimary,
+        fontSize: typography.fontSizes.small,
+        fontWeight: typography.fontWeights.bold,
     },
     eventImage: {
         width: '100%',
@@ -55,7 +72,7 @@ const styles = StyleSheet.create({
         resizeMode: 'cover',
     },
     infoContainer: {
-
+        paddingHorizontal: 15, 
     },
     scanButton: {
         maxWidth: 100,

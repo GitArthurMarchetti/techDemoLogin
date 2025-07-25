@@ -57,7 +57,7 @@ const ScanOptionsScreen: React.FC<ScanOptionsScreenProps> = ({ navigation, route
         <View style={styles.container}>
             <View style={styles.content}>
                 <Text style={styles.eventName}>{eventName}</Text>
-                <Text style={styles.eventLocation}>{eventLocation}</Text>
+                <Text style={styles.eventLocation}>Location: {eventLocation}</Text>
 
                 <Text style={styles.sectionTitle}>Tickets for this Event:</Text>
                 {loadingTickets ? (
@@ -93,7 +93,8 @@ const ScanOptionsScreen: React.FC<ScanOptionsScreenProps> = ({ navigation, route
                     title="Back"
                     onPress={handleGoBack}
                     type="outlineDanger"
-                    style={styles.fullWidthButton}
+                    style={styles.backButton}
+                    textStyle={styles.backButtonText}
                 />
             </View>
         </View>
@@ -178,10 +179,18 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         marginBottom: 20,
     },
-    fullWidthButton: {
-        width: '100%',
-        maxWidth: '100%',
-        marginBottom: 0,
+    backButtonText: {
+        color: colors.bgPrimary,
+        fontSize: typography.fontSizes.normal,
+        fontWeight: typography.fontWeights.semiBold,
+    },
+    backButton: {
+        backgroundColor: colors.danger,
+        padding: 10,
+        borderRadius: 5,
+        width: '80%',
+        maxWidth: 150,
+        alignItems: 'center',
     },
 });
 

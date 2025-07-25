@@ -54,7 +54,7 @@ const EventsScreen: React.FC<EventsScreenProps> = ({ navigation }) => {
             <View style={styles.header}>
                 <Text style={styles.title}>Available Events</Text>
                 {user && (
-                    <Text style={styles.loggedInAs}>Logged in as: {user.username}</Text>
+                    <Text style={styles.loggedInAs}>Logged in as: {user.signInDetails?.loginId}</Text>
                 )}
                 <CustomButton
                     title="Log out"

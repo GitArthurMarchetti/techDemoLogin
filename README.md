@@ -1,45 +1,302 @@
-# React Native Login & Events List Demo App
+# AuthDemoLocal - Event Management and Ticket Scanning Application
 
-This project is a simple React Native demo application showcasing a basic login flow and a list of events. It was developed as a technical assessment to evaluate understanding of React Native fundamentals, component structure, and state management.
+[cite_start]This repository contains the source code for a React Native mobile application focused on event management and ticket scanning[cite: 1, 2]. [cite_start]The application integrates with AWS Cognito for user authentication and offers an interface to view events and scan tickets[cite: 3].
 
-## 🎯 Objective
+## Summary
 
-Build a simple React Native demo app that showcases a basic login flow and displays a list of events. The purpose of this task is to evaluate your understanding of React Native fundamentals, component structure, and state management. Doesn't need to be complex for the login and event list, mainly need to see that your code is clean.
+* [Project Overview](#project-overview)
+* [Key Features](#key-features)
+* [Project Structure](#project-structure)
+* [Development Environment Setup](#development-environment-setup)
+    * [Prerequisites](#prerequisites)
+    * [Installation](#installation)
+    * [AWS Amplify/Cognito Configuration](#aws-amplifycognito-configuration)
+    * [Running the Application](#running-the-application)
+* [Production Deploy (Android)](#production-deploy-android)
+    * [Generate Signing Key (Keystore)](#generate-signing-key-keystore)
+    * [Configure Gradle for Signing](#configure-gradle-for-signing)
+    * [Generate Android App Bundle (AAB)](#generate-android-app-bundle-aab)
+    * [Distribute APK for Demo](#distribute-apk-for-demo-without-google-play-store)
+* [How to Contribute/Update](#how-to-contributeupdate)
 
-## ✅ Requirements Checklist
+## Project Overview
 
-Here's a checklist of the requirements, indicating what has been implemented:
+[cite_start]AuthDemoLocal is a React Native application demonstrating a user authentication flow and event management with ticket scanning functionality[cite: 20]. [cite_start]Authentication is handled by AWS Cognito, and the user interface is built with standard React Native components and navigation libraries[cite: 21].
 
-### 1. Login Screen
+## Key Features
 
-* [x] Display two input fields:
+* **User Authentication**:
+    * [cite_start]Login via email (integrated with AWS Cognito and AWS Amplify UI Authenticator)[cite: 24].
+    * [cite_start]"Create Account" option disabled in the Authenticator UI[cite: 25].
+    * [cite_start]Secure logout[cite: 26].
+* **Event Listing**:
+    * [cite_start]Displays events associated with the logged-in user (mock data from `src/data/events.json`)[cite: 28].
+    * [cite_start]Allows navigation to ticket scanning options for a specific event[cite: 29].
+* **Ticket Scanning**:
+    * [cite_start]Uses the device camera to scan barcodes[cite: 31].
+    * [cite_start]Validates the scanned code against pre-defined tickets for the event (mock data from `src/data/tickets.json`)[cite: 32].
+    * [cite_start]Displays a visual pop-up (green for valid, red for invalid) with instant feedback[cite: 33].
+* **Navigation**:
+    * [cite_start]Uses `@react-navigation/native-stack` for screen navigation[cite: 35].
+    * [cite_start]Conditional navigation based on authentication status (Login vs. Events)[cite: 36].
 
-  * **Email**
+## Project Structure
 
-  * **Password**
+[cite_start]The project follows a modular structure to facilitate maintenance and scalability[cite: 38].
 
-* [x] A **Login** button that:
+AuthDemoLocal/
+├── android/                   # Android native configurations and code 
 
-  * [x] Validates the email and password against a static list of user credentials stored in a local JSON file (`users.json`).
+├── ios/                       # iOS native configurations and code 
 
-  * [x] On successful login, navigates to the **Events List** screen.
+├── node_modules/              # Project dependencies 
 
-  * [x] On failure, displays an error message (both `Alert.alert()` and inline red text).
 
-### 2. Events List Screen
+├── src/
+│   ├── assets/                # Images, fonts, etc. 
 
-* [x] After login, the app should navigate to a new screen displaying a scrollable list of events.
 
-* [x] The event data should be sourced from a static `events.json` file.
+│   │   └── images/
+│   ├── components/            # Reusable React components (buttons, list items) 
 
-* [x] Each event item should include:
 
-  * [x] **Event Name**
+│   │   ├── CustomButton.tsx
+│   │   └── EventItem.tsx
+│   ├── context/               # React contexts (if applicable, AuthContext was removed) 
 
-  * [x] **Date**
+│   ├── data/                  # Mock data for events and tickets 
 
-  * [x] **Location**
 
-## 📁 Project Structure
+│   │   ├── events.json
+│   │   └── tickets.json
+│   ├── hooks/                 # Custom React hooks for reusable logic 
 
-The project follows the suggested file structure for clarity and modularity:
+
+│   │   ├── useBarcodeScanner.ts
+│   │   ├── useCameraPermissions.ts
+│   │   └── useTimedPopup.ts
+│   │   └── useUserEvents.ts
+│   ├── interfaces/            # TypeScript type definitions (interfaces) 
+
+
+│   │   ├── event.ts
+│   │   ├── navigation.ts
+│   │   └── tickets.ts
+│   ├── navigation/            # Application navigation configuration 
+
+
+│   │   └── RootNavigator.tsx
+│   ├── screens/               # Main application screens 
+
+
+│   │   ├── App/
+│   │   │   ├── EventsScreen.tsx
+│   │   │   ├── ScanOptionsScreen.tsx
+│   │   │   └── ScannerScreen.tsx
+│   │   └── Auth/
+│   │       └── LoginScreen.tsx
+│   ├── theme/                 # Theme definitions (colors, typography) 
+
+
+│   │   ├── colors.ts
+│   │   └── typography.ts
+│   └── utils/                 # Utility functions and data services 
+
+
+│       ├── eventsService.ts
+│       ├── scanService.ts
+│       └── ticketService.ts
+│   ├── App.js                 # Root application component 
+
+│   ├── amplify-config.js      # AWS Amplify configuration 
+
+│   └── aws-exports.js         # (Generated by Amplify CLI or manually configured) 
+
+├── .env                       # Environment variables (if using react-native-dotenv) 
+
+├── .gitignore                 
+
+├── babel.config.js            
+
+├── metro.config.js            
+
+├── package.json               
+
+├── tsconfig.json              
+
+└── yarn.lock / package-lock.json 
+
+
+## Development Environment Setup
+
+To run this project locally, follow the steps below[cite: 89].
+
+### Prerequisites
+
+* Node.js (version 18 or higher) [cite: 91]
+* npm (Node.js package manager) or Yarn [cite: 92]
+* Java Development Kit (JDK) (version 11 or higher) [cite: 93]
+* Android Studio (with SDK Platform 33 or higher, and command-line tools) [cite: 94]
+* Android SDK Environment Variables configured (`ANDROID_HOME`) [cite: 95]
+* `adb` configured in your PATH [cite: 96]
+* Android emulator or physical Android device with USB debugging enabled[cite: 97].
+
+### Installation
+
+1.  Clone the repository:
+    ```bash
+    git clone <YOUR_REPOSITORY_URL>
+    cd AuthDemoLocal
+    ```
+    [cite: 99, 100]
+2.  Install NPM dependencies:
+    ```bash
+    npm install
+    # OR
+    yarn install
+    ```
+    [cite: 101, 103]
+3.  Install CocoaPods (for iOS only, if developing for iOS):
+    ```bash
+    cd ios
+    pod install
+    cd ..
+    ```
+    [cite: 104, 105, 106]
+
+### AWS Amplify/Cognito Configuration
+
+The application is configured to use an existing Cognito User Pool from your company[cite: 108].
+
+1.  Create the `src/amplify-config.js` file[cite: 109]. This file contains the AWS Amplify configuration[cite: 109].
+2.  Replace the placeholders with the actual details of your company's Cognito User Pool[cite: 110].
+
+    ```javascript
+    // src/amplify-config.js
+    import { Amplify } from 'aws-amplify';
+
+    const configureAmplify = () => {
+        Amplify.configure({
+            Auth: {
+                Cognito: {
+                    userPoolId: 'YOUR_COMPANY_USER_POOL_ID', // E.g., 'us-west-2_XXXXX' [cite: 116]
+                    userPoolClientId: 'YOUR_COMPANY_USER_POOL_CLIENT_ID', // E.g., '1a2b3c4d5e6f7g8h9i0j1k2l3m' [cite: 117]
+                    region: 'YOUR_COMPANY_AWS_REGION', // E.g., 'us-west-2' or 'sa-east-1' [cite: 118]
+
+                    loginWith: {
+                        oauth: {
+                            domain: "tfpapayalogin.auth.us-west-2.amazoncognito.com", // Cognito Hosted UI Domain [cite: 121]
+                            scopes: ["aws.cognito.signin.user.admin", "openid", "profile", "email"], [cite: 122]
+                            redirectSignIn: [
+                                'http://localhost:8081/Events/', // Local redirect URL for the app [cite: 124]
+                                '[https://kiplingpass.com/Events/](https://kiplingpass.com/Events/)' // Production/staging redirect URL [cite: 125]
+                            ],
+                            redirectSignOut: [
+                                'http://localhost:8081/Login/', // Local redirect URL for login [cite: 128]
+                                '[https://kiplingpass.com/Login/](https://kiplingpass.com/Login/)' // Production/staging redirect URL [cite: 129]
+                            ],
+                            responseType: 'code', [cite: 131]
+                            providers: ["Google"] // Configured social providers [cite: 132]
+                        }
+                    },
+                },
+            }
+        });
+    };
+
+    export default configureAmplify;
+    ```
+    Remember that the `redirectSignIn` and `redirectSignOut` URLs must be registered exactly in your Cognito User Pool's App Client settings in the AWS console[cite: 140].
+
+3.  **Mock Data**:
+    * `src/data/events.json`: Contains the list of events[cite: 142]. Ensure the structure of the JSON objects matches the `EventFromJSON` interface (in `src/interfaces/event.ts`) and that `user_id`s match the Cognito test user's `sub`[cite: 142].
+    * `src/data/tickets.json`: Contains the tickets[cite: 143]. Ensure the structure matches the `TicketFromJSON` interface (in `src/interfaces/tickets.ts`) and that `EventId`s match the `event_id`s of the events[cite: 143].
+
+### Running the Application
+
+1.  Start the Metro Bundler:
+    ```bash
+    npx react-native start --reset-cache
+    ```
+    Keep this terminal running[cite: 145, 146].
+2.  Run the Application on Android (in a new terminal):
+    ```bash
+    npx react-native run-android
+    ```
+    [cite: 147]
+    If it's the first time, it might take a while to build[cite: 148]. The application will be installed on the emulator or connected device[cite: 149]. You should see the AWS Amplify Authenticator login screen[cite: 150].
+
+## Production Deploy (Android)
+
+To create a release package (`.aab` or `.apk`) for distribution (e.g., on Google Play Store or for direct demos)[cite: 152].
+
+### Generate Signing Key (Keystore)
+
+If you don't have a signing key yet, generate one[cite: 154]. Keep this file (`my-upload-key.keystore`) and the passwords secure! [cite: 154]
+
+1.  Navigate to `android/app`:
+    ```bash
+    cd android/app
+    ```
+    [cite: 155]
+2.  Generate the key:
+    ```bash
+    keytool -genkeypair -v -storepass <YOUR_KEYSTORE_PASSWORD> -keystore my-upload-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 10000
+    ```
+    [cite: 156]
+    Replace `<YOUR_KEYSTORE_PASSWORD>` with your password[cite: 157]. When asked for the key password (`Enter key password for <my-key-alias>`), press ENTER if you want it to be the same as the keystore password[cite: 158].
+
+### Configure Gradle for Signing
+
+1.  Create/Edit `~/.gradle/gradle.properties` (outside the project):
+    ```bash
+    nano ~/.gradle/gradle.properties
+    ```
+    [cite: 160]
+2.  Add/update:
+    ```properties
+    MYAPP_UPLOAD_STORE_FILE=my-upload-key.keystore
+    MYAPP_UPLOAD_KEY_ALIAS=my-key-alias
+    MYAPP_UPLOAD_STORE_PASSWORD=<YOUR_KEYSTORE_PASSWORD>
+    MYAPP_UPLOAD_KEY_PASSWORD=<YOUR_KEY_PASSWORD>
+    ```
+    [cite: 161, 162, 163, 164]
+    (Use the passwords you defined in the previous step)[cite: 165].
+3.  Edit `android/app/build.gradle`: Ensure your `android/app/build.gradle` has the `signingConfigs` and `buildTypes` configuration as per the latest code provided in our conversation[cite: 166]. This ensures the `release` build uses your signing key[cite: 167].
+
+### Generate Android App Bundle (AAB)
+
+AAB is the recommended format for Google Play Store[cite: 169].
+
+1.  Navigate to the `android` folder of your project:
+    ```bash
+    cd ../ # If you are in android/app, go back to android
+    # OR
+    cd ~/AuthDemoLocal/android
+    ```
+    [cite: 170, 171, 172]
+2.  Clean and build the release AAB:
+    ```bash
+    ./gradlew clean
+    ./gradlew bundleRelease
+    ```
+    [cite: 173, 174]
+    The generated AAB will be in `android/app/build/outputs/bundle/release/app-release.aab`[cite: 175].
+
+### Distribute APK for Demo (Without Google Play Store)
+
+For a quick demo without Google Play Store, you can generate an APK and distribute it directly[cite: 177].
+
+1.  Generate the Release APK: Navigate to the `android` folder of your project:
+    ```bash
+    cd ~/AuthDemoLocal/android
+    ./gradlew clean
+    ./gradlew assembleRelease
+    ```
+    [cite: 178, 179, 180]
+    The generated APK will be in `android/app/build/outputs/apk/release/app-release.apk`[cite: 181].
+2.  Share the APK File: Send this `app-release.apk` directly to users via email, cloud storage services (Google Drive, Dropbox), or beta distribution platforms like Firebase App Distribution[cite: 182].
+3.  Installation Instructions for the End User: The user will need to:
+    * Download the `.apk` file to their Android device[cite: 184].
+    * In Android security settings, allow installation of apps from "Unknown Sources" for the source from which they downloaded the APK (browser, file manager, etc.)[cite: 185].
+    * Open the `.apk` file and follow the instructions to install the app[cite: 186].
